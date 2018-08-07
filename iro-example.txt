@@ -20,8 +20,8 @@
 ##
 ################################################################
 
-name                   = mysample
-file_extensions []     = mysample;
+name                   = aql
+file_extensions []     = aql;
 
 contexts[] {
    main : context {
