@@ -20,18 +20,18 @@
 ##
 ################################################################
 
-name                   = aql
-file_extensions []     = aql;
+name                   = mysample
+file_extensions []     = mysample;
 
 contexts[] {
    main : context {
       : pattern {
-         regex   \= (instance|schema|typeside)
+         regex   \= (^(instance|schema|typeside|pragma|html|md|query|command))
          styles[] = .keyword;
       }
       : pattern {
-        regex   \= (literal)
-        styles[] = .sndkeyword;
+        regex   \= (\s*literal|simple\s*\:)
+        styles[] = .keyword_type;
       }
       : pattern {
          regex   \= (//.*)
@@ -51,9 +51,15 @@ contexts[] {
          styles[] = .attribute;
       }
 
+      : push {
+         regex \= (\(\*)
+         styles[] = .quoted;
+         context[] = inside_quotes;
+      }
+
       : pattern {
-         regex \= (\s*\w*\s+)(\:\s+)([a-zA-Z]*)(\s+\-\>)(\s+[a-zA-Z]*)
-         styles[] = .identifier, .bracket, .type, .bracket, .type;
+         regex \= (\s*(\w|\s)+\s+)(\:\s+)([a-zA-Z,\s]+)(\s+\-\>)(\s+[a-zA-Z,\s]+)
+         styles[] = .bracket, .bracket, .bracket, .type, .bracket, .type;
       }
 
       : pattern {
@@ -61,16 +67,33 @@ contexts[] {
          styles[] = .type, .bracket, .bracket;
       }
    }
+
+   inside_quotes : context {
+      : pop {
+         regex \= (\*\))
+         styles[] = .quoted;
+      }
+
+      : inline_push {
+         regex   \= (\")
+         styles[] = .quoted;
+         default_style = .quoted
+         : pop {
+            regex    \= (\")
+            styles[]  = .quoted;
+         }
+      }
+   }
 }
 
 styles[] {
-   .keyword : style color   = "yellow";
-   .sndkeyword :style color = "brown" ;
-   .quoted  : style color   = "green" ;
-   .comment : style color   = "grey"  ;
-   .attribute : style color = "red"   ;
+   .keyword : style color   = "#6d97db";
+   .keyword_type :style color = "#dbbb6d" ;
+   .quoted  : style color   = "#55a554" ;
+   .comment : style color   = "#adadad"  ;
+   .attribute : style color = "#db6d6d"   ;
    .bracket : style color = "white" ;
    .arrow : style color = "blue";
    .identifier : style color = "pink" ;
-   .type : style color = "purple";
+   .type : style color = "#dbd87a";
 }
