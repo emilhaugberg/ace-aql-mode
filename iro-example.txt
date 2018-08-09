@@ -26,12 +26,24 @@ file_extensions []     = mysample;
 contexts[] {
    main : context {
       : pattern {
-         regex   \= (^(instance|schema|typeside|pragma|html|md|query|command))
-         styles[] = .keyword;
+         regex   \= (^(instance|schema|typeside|pragma|html|md|query|command|mapping|transform|constraints|graph|exec_jdbc|exec_js|exec_cmdline|import_csv|import_jdbc_instance))
+         styles[] = .constant;
       }
       : pattern {
-        regex   \= (\s*literal|simple\s*\:)
-        styles[] = .keyword_type;
+        regex   \= (\s*identity|literal|sql|schemaOf|typesideOf|toQuery|fromQuery|simple|chase|anonymize|frozen|unit|counit_query|counit|empty|union|coproduct|coproduct_sigma|distinct|eval|coeval|coequalize|src|dst|check|assert_consistent\s*\:)
+        styles[] = .keyword;
+      }
+      : pattern {
+         regex \= (\s*nodes|edges|entity|entities|foreign_keys|attributes|generators|equations|multi_equations|path_equations|options|functions|constants|types|imports|java_types|java_constants|java_functions\s*)
+         styles[] = .name;
+      }
+      : pattern {
+         regex \= (\s+sigma|delta|pi|lambda\s+)
+         styles[] = .builtin;
+      }
+      : pattern {
+         regex \= (\s*from|where|exists\s*)
+         styles[] = .db;
       }
       : pattern {
          regex   \= (//.*)
@@ -58,13 +70,13 @@ contexts[] {
       }
 
       : pattern {
-         regex \= (\s*(\w|\s)+\s+)(\:\s+)([a-zA-Z,\s]+)(\s+\-\>)(\s+[a-zA-Z,\s]+)
-         styles[] = .bracket, .bracket, .bracket, .type, .bracket, .type;
+         regex \= (\s*(\w|\s)+\s*)(\:\s+)([a-zA-Z,\s]+)(\s+\-\>)(\s+[a-zA-Z,\s]+)
+         styles[] = .white, .white, .white, .type, .white, .type;
       }
 
       : pattern {
          regex \= (\s*[a-zA-Z]*)(\s*\-\>\s*\{.*\})(,|;)
-         styles[] = .type, .bracket, .bracket;
+         styles[] = .type, .white, .white;
       }
    }
 
@@ -87,13 +99,14 @@ contexts[] {
 }
 
 styles[] {
-   .keyword : style color   = "#6d97db";
-   .keyword_type :style color = "#dbbb6d" ;
-   .quoted  : style color   = "#55a554" ;
-   .comment : style color   = "#adadad"  ;
-   .attribute : style color = "#db6d6d"   ;
-   .bracket : style color = "white" ;
-   .arrow : style color = "blue";
-   .identifier : style color = "pink" ;
-   .type : style color = "#dbd87a";
+   .constant   : style color = "#6d97db";
+   .keyword    : style color = "#dbbb6d";
+   .name       : style color = "#db6d6d";
+   .quoted     : style color = "#55a554";
+   .comment    : style color = "#adadad";
+   .attribute  : style color = "#db6d6d";
+   .db         : style color = "#6d97db";
+   .builtin    : style color = "#88448c";
+   .white      : style color = "white"  ;
+   .type       : style color = "#dbd87a";
 }
