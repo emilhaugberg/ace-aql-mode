@@ -99,14 +99,66 @@ contexts[] {
 }
 
 styles[] {
-   .constant   : style color = "#6d97db";
-   .keyword    : style color = "#dbbb6d";
-   .name       : style color = "#db6d6d";
-   .quoted     : style color = "#55a554";
-   .comment    : style color = "#adadad";
-   .attribute  : style color = "#db6d6d";
-   .db         : style color = "#6d97db";
-   .builtin    : style color = "#88448c";
-   .white      : style color = "white"  ;
-   .type       : style color = "#dbd87a";
+   .constant : style {
+      color = #6d97db
+      textmate_scope = constant
+      pygments_scope = Name.Constant
+
+   }
+
+   .keyword : style {
+      color = #dbbb6d
+      textmate_scope = keyword
+      pygments_scope = Keyword
+
+   }
+
+   .name : style {
+      color = #db6d6d
+      textmate_scope = entity.name
+      pygments_scope = Name
+   }
+
+   .attribute : style {
+      color = #db6d6d
+      textmate_scope = keyword.control
+      pygments_scope = Keyword.Reserved
+   }
+
+   .quoted : style {
+      color = #55a554
+      textmate_scope = string
+      pygments_scope = String
+   }
+
+   .comment : style {
+      color = #adadad
+      textmate_scope = comment
+      pygments_scope = Comment
+   }
+
+   .db : style {
+      color = #6d97db
+      textmate_scope = constant.language
+      pygments_scope = Operator
+
+   }
+
+   .builtin    : style {
+      color = #88448c
+      textmate_scope = keyword.operator
+      pygments_scope = Name.Builtin
+   }
+
+   .white      : style  {
+      color = white
+      textmate_scope = text
+      pygments_scope = Generic
+   }
+
+   .type       : style {
+      color = #dbd87a
+      textmate_scope = entity.name.class
+      pygments_scope = Name.Decorator
+   }
 }
